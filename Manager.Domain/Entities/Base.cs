@@ -2,7 +2,7 @@
 {
     public abstract class Base
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
 
         internal List<string> _errors;
