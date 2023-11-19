@@ -1,4 +1,5 @@
-﻿using Manager.Domain.Validators;
+﻿using Manager.Core.Exceptions;
+using Manager.Domain.Validators;
 
 namespace Manager.Domain.Entities
 {
@@ -26,7 +27,7 @@ namespace Manager.Domain.Entities
             if (!validationResult.IsValid)
             {
                 string erros = string.Join(" ", validationResult.Errors.Select(x => x.ErrorMessage));
-                throw new ArgumentException("Alguns erros ocorreram: " + erros);
+                throw new DomainException("Alguns erros ocorreram: ", _errors);
             }
 
             return true;
