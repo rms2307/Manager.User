@@ -5,13 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Manager.Infra.Repositories
 {
-    public class UserRepository : BaseRepository<User>, IUserRepository
+    public class UserRepository(ManagerContext context) : BaseRepository<User>(context), IUserRepository
     {
-        private readonly ManagerContext _context;
-        public UserRepository(ManagerContext context) : base(context)
-        {
-            _context = context;
-        }
+        private readonly ManagerContext _context = context;
 
         public async Task<User?> GetByEmailAsync(string email)
             => await _context.Set<User>().AsNoTracking().FirstOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
