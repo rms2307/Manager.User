@@ -8,7 +8,10 @@ using Manager.Services.Interfaces;
 
 namespace Manager.Services.Services
 {
-    public class UserService(IMapper mapper, IUserRepository userResository, ICryptographyService cryptographyService) : IUserService
+    public class UserService(
+        IMapper mapper,
+        IUserRepository userResository,
+        ICryptographyService cryptographyService) : IUserService
     {
         private readonly IMapper _mapper = mapper;
         private ICryptographyService _cryptographyService = cryptographyService;
@@ -40,7 +43,7 @@ namespace Manager.Services.Services
 
             user.SetPassword(_cryptographyService.Encrypt(user.Password));
 
-            User userUpdated = await _userResository.CreateAsync(user);
+            User userUpdated = await _userResository.UpdateAsync(user);
 
             return _mapper.Map<UserDto>(userUpdated);
         }
