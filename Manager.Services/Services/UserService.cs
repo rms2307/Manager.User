@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Manager.Core.Exceptions;
+using Manager.Core.Services.Interfaces;
 using Manager.Domain.Entities;
 using Manager.Infra.Interfaces;
 using Manager.Services.Dtos;
@@ -7,9 +8,10 @@ using Manager.Services.Interfaces;
 
 namespace Manager.Services.Services
 {
-    public class UserService(IMapper mapper, IUserRepository userResository) : IUserService
+    public class UserService(IMapper mapper, IUserRepository userResository, ICryptographyService cryptographyService) : IUserService
     {
         private readonly IMapper _mapper = mapper;
+        private ICryptographyService _cryptographyService = cryptographyService;
         private readonly IUserRepository _userResository = userResository;
 
         public async Task<UserDto> CreateAsync(UserDto userDto)
@@ -20,6 +22,8 @@ namespace Manager.Services.Services
 
             User user = _mapper.Map<User>(userDto);
             user.Validate();
+
+            user.SetPassword(_cryptographyService.Encrypt(user.Password));
 
             User userCreated = await _userResository.CreateAsync(user);
 
@@ -33,6 +37,8 @@ namespace Manager.Services.Services
 
             User user = _mapper.Map<User>(userDto);
             user.Validate();
+
+            user.SetPassword(_cryptographyService.Encrypt(user.Password));
 
             User userUpdated = await _userResository.CreateAsync(user);
 

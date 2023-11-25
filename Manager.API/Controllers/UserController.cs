@@ -36,9 +36,9 @@ namespace Manager.API.Controllers
             {
                 return BadRequest(Responses.DomainErrorMessage(ex.Message, ex.Errors));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, Responses.ApplicationErrorMessage());
+                return StatusCode(500, Responses.ApplicationErrorMessage(ex.Message));
             }
         }
 

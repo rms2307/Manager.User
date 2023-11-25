@@ -1,6 +1,8 @@
 using AutoMapper;
 using Manager.API.Token;
 using Manager.API.ViewModels;
+using Manager.Core.Services;
+using Manager.Core.Services.Interfaces;
 using Manager.Domain.Entities;
 using Manager.Infra.Context;
 using Manager.Infra.Interfaces;
@@ -48,6 +50,8 @@ var autoMapperConfig = new MapperConfiguration(cfg =>
 builder.Services.AddSingleton(autoMapperConfig.CreateMapper());
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICryptographyService, CryptographyService>();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddControllers();

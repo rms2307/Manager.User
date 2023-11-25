@@ -8,7 +8,17 @@ namespace Manager.API.Utilities
         {
             return new ResultViewModel
             {
-                Message = "Ocorreu algum erro interno na aplicação, por favor tente novamente.",
+                Message = "Ocorreu algum erro interno na aplicação.",
+                Success = false,
+                Data = null
+            };
+        }
+
+        public static ResultViewModel ApplicationErrorMessage(string message)
+        {
+            return new ResultViewModel
+            {
+                Message = "Ocorreu algum erro interno na aplicação. Erro: " + message,
                 Success = false,
                 Data = null
             };

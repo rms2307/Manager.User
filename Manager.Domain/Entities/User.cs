@@ -33,19 +33,19 @@ namespace Manager.Domain.Entities
             return true;
         }
 
-        public void ChangeName(string name)
+        public void SetName(string name)
         {
             Name = name;
             Validate();
         }
 
-        public void ChangePassword(string password)
+        public void SetPassword(string password)
         {
             Password = password;
             Validate();
         }
 
-        public void ChangeEmail(string email)
+        public void SetEmail(string email)
         {
             Email = email;
             Validate();
